@@ -22,6 +22,7 @@ export default function RegisterPage() {
   const [isFocused, setIsFocused] = useState(false);
   const [grades, setGrades] = useState([]);
   const [useLocalGrades, setUseLocalGrades] = useState(true);
+  const [gradeType, setGradeType] = useState('egyptian'); // egyptian / gulf
 
   const countries = [
     { code: '+20', name: '🇪🇬 مصر', digits: 10 },
@@ -46,20 +47,35 @@ export default function RegisterPage() {
     { code: '+967', name: '🇾🇪 اليمن', digits: 9 },
   ];
 
-  // ===== قائمة المراحل المحلية (Local Grades) =====
+  // ===== قائمة المراحل المحلية (المصرية والخليجية) =====
   const localGrades = [
-    { id: '1-primary', name: 'الصف الأول الابتدائي', stage: 'primary', order: 1, icon: '📘' },
-    { id: '2-primary', name: 'الصف الثاني الابتدائي', stage: 'primary', order: 2, icon: '📗' },
-    { id: '3-primary', name: 'الصف الثالث الابتدائي', stage: 'primary', order: 3, icon: '📕' },
-    { id: '4-primary', name: 'الصف الرابع الابتدائي', stage: 'primary', order: 4, icon: '📙' },
-    { id: '5-primary', name: 'الصف الخامس الابتدائي', stage: 'primary', order: 5, icon: '📔' },
-    { id: '6-primary', name: 'الصف السادس الابتدائي', stage: 'primary', order: 6, icon: '📒' },
-    { id: '1-prep', name: 'الصف الأول الإعدادي', stage: 'prep', order: 7, icon: '📘' },
-    { id: '2-prep', name: 'الصف الثاني الإعدادي', stage: 'prep', order: 8, icon: '📗' },
-    { id: '3-prep', name: 'الصف الثالث الإعدادي', stage: 'prep', order: 9, icon: '📕' },
-    { id: '1-secondary', name: 'الصف الأول الثانوي', stage: 'secondary', order: 10, icon: '📙' },
-    { id: '2-secondary', name: 'الصف الثاني الثانوي', stage: 'secondary', order: 11, icon: '📔' },
-    { id: '3-secondary', name: 'الصف الثالث الثانوي', stage: 'secondary', order: 12, icon: '📒' },
+    // ===== النظام المصري =====
+    { id: '1-primary-egy', name: 'الصف الأول الابتدائي', stage: 'primary', order: 1, icon: '📘', type: 'egyptian' },
+    { id: '2-primary-egy', name: 'الصف الثاني الابتدائي', stage: 'primary', order: 2, icon: '📗', type: 'egyptian' },
+    { id: '3-primary-egy', name: 'الصف الثالث الابتدائي', stage: 'primary', order: 3, icon: '📕', type: 'egyptian' },
+    { id: '4-primary-egy', name: 'الصف الرابع الابتدائي', stage: 'primary', order: 4, icon: '📙', type: 'egyptian' },
+    { id: '5-primary-egy', name: 'الصف الخامس الابتدائي', stage: 'primary', order: 5, icon: '📔', type: 'egyptian' },
+    { id: '6-primary-egy', name: 'الصف السادس الابتدائي', stage: 'primary', order: 6, icon: '📒', type: 'egyptian' },
+    { id: '1-prep-egy', name: 'الصف الأول الإعدادي', stage: 'prep', order: 7, icon: '📘', type: 'egyptian' },
+    { id: '2-prep-egy', name: 'الصف الثاني الإعدادي', stage: 'prep', order: 8, icon: '📗', type: 'egyptian' },
+    { id: '3-prep-egy', name: 'الصف الثالث الإعدادي', stage: 'prep', order: 9, icon: '📕', type: 'egyptian' },
+    { id: '1-secondary-egy', name: 'الصف الأول الثانوي', stage: 'secondary', order: 10, icon: '📙', type: 'egyptian' },
+    { id: '2-secondary-egy', name: 'الصف الثاني الثانوي', stage: 'secondary', order: 11, icon: '📔', type: 'egyptian' },
+    { id: '3-secondary-egy', name: 'الصف الثالث الثانوي', stage: 'secondary', order: 12, icon: '📒', type: 'egyptian' },
+
+    // ===== النظام الخليجي (السعودي) =====
+    { id: '1-primary-gulf', name: 'الصف الأول الابتدائي', stage: 'primary', order: 1, icon: '📘', type: 'gulf' },
+    { id: '2-primary-gulf', name: 'الصف الثاني الابتدائي', stage: 'primary', order: 2, icon: '📗', type: 'gulf' },
+    { id: '3-primary-gulf', name: 'الصف الثالث الابتدائي', stage: 'primary', order: 3, icon: '📕', type: 'gulf' },
+    { id: '4-primary-gulf', name: 'الصف الرابع الابتدائي', stage: 'primary', order: 4, icon: '📙', type: 'gulf' },
+    { id: '5-primary-gulf', name: 'الصف الخامس الابتدائي', stage: 'primary', order: 5, icon: '📔', type: 'gulf' },
+    { id: '6-primary-gulf', name: 'الصف السادس الابتدائي', stage: 'primary', order: 6, icon: '📒', type: 'gulf' },
+    { id: '1-intermediate-gulf', name: 'الصف الأول المتوسط', stage: 'intermediate', order: 7, icon: '📘', type: 'gulf' },
+    { id: '2-intermediate-gulf', name: 'الصف الثاني المتوسط', stage: 'intermediate', order: 8, icon: '📗', type: 'gulf' },
+    { id: '3-intermediate-gulf', name: 'الصف الثالث المتوسط', stage: 'intermediate', order: 9, icon: '📕', type: 'gulf' },
+    { id: '1-secondary-gulf', name: 'الصف الأول الثانوي', stage: 'secondary', order: 10, icon: '📙', type: 'gulf' },
+    { id: '2-secondary-gulf', name: 'الصف الثاني الثانوي', stage: 'secondary', order: 11, icon: '📔', type: 'gulf' },
+    { id: '3-secondary-gulf', name: 'الصف الثالث الثانوي', stage: 'secondary', order: 12, icon: '📒', type: 'gulf' },
   ];
 
   useEffect(() => {
@@ -208,6 +224,7 @@ export default function RegisterPage() {
 
       if (userType === 'student') {
         userData.grade = (form.querySelector('[name="grade"]') as HTMLSelectElement)?.value || '';
+        userData.gradeType = gradeType; // ✅ حفظ نوع النظام (مصري / خليجي)
         userData.parentName = parentNameInput?.value || '';
         userData.parentPhone = parentPhoneInput?.value || '';
         userData.isApproved = false;
@@ -301,6 +318,15 @@ export default function RegisterPage() {
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
 
+  // ===== تصفية المراحل حسب النظام المختار =====
+  const getFilteredGrades = () => {
+    if (gradeType === 'egyptian') {
+      return localGrades.filter(g => g.type === 'egyptian');
+    } else {
+      return localGrades.filter(g => g.type === 'gulf');
+    }
+  };
+
   useEffect(() => {
     if (confirmPassword.length > 0) {
       setPasswordMatch(passwordValue === confirmPassword);
@@ -310,6 +336,8 @@ export default function RegisterPage() {
   }, [passwordValue, confirmPassword]);
 
   if (!mounted) return null;
+
+  const filteredGrades = getFilteredGrades();
 
   return (
     <div style={styles.container}>
@@ -436,31 +464,51 @@ export default function RegisterPage() {
               {/* ===== طالب ===== */}
               {userType === 'student' && (
                 <>
+                  {/* ✅ اختيار النظام (مصري / خليجي) */}
+                  <div style={styles.inputGroup}>
+                    <label style={styles.label}><span style={styles.labelIcon}>🌍</span>نظام التعليم</label>
+                    <div style={styles.userTypeContainer}>
+                      <button
+                        type="button"
+                        onClick={() => setGradeType('egyptian')}
+                        style={{
+                          ...styles.userTypeBtn,
+                          ...(gradeType === 'egyptian' ? styles.userTypeActive : {}),
+                        }}
+                      >
+                        🇪🇬 مصري
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setGradeType('gulf')}
+                        style={{
+                          ...styles.userTypeBtn,
+                          ...(gradeType === 'gulf' ? styles.userTypeActive : {}),
+                        }}
+                      >
+                        🇸🇦 خليجي
+                      </button>
+                    </div>
+                  </div>
+
                   <div style={styles.inputGroup}>
                     <label style={styles.label}><span style={styles.labelIcon}>📚</span>السنة الدراسية</label>
                     <select name="grade" required style={styles.select}>
                       <option value="" disabled selected>اختر مرحلتك الدراسية</option>
                       
-                      {/* ===== عرض المراحل (من Firebase أو محلية) ===== */}
-                      {grades.length > 0 ? (
-                        grades.map((grade: any) => (
-                          <option key={grade.id} value={grade.id}>
-                            {grade.icon || '📚'} {grade.name}
-                          </option>
-                        ))
-                      ) : (
-                        // لو لسه محملش، اعرض الـ localGrades
-                        localGrades.map((grade) => (
-                          <option key={grade.id} value={grade.id}>
-                            {grade.icon} {grade.name}
-                          </option>
-                        ))
-                      )}
+                      {/* ===== عرض المراحل حسب النظام ===== */}
+                      {filteredGrades.map((grade: any) => (
+                        <option key={grade.id} value={grade.id}>
+                          {grade.icon} {grade.name}
+                          {grade.type === 'gulf' && ' 🇸🇦'}
+                        </option>
+                      ))}
                     </select>
                     
-                    {/* ===== رسالة توضح مصدر البيانات ===== */}
+                    {/* ===== رسالة توضح النظام ===== */}
                     <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', marginTop: '4px', textAlign: 'left' }}>
-                      {useLocalGrades ? '📌 البيانات من القائمة المحلية' : '☁️ البيانات من Firebase'}
+                      {gradeType === 'egyptian' ? '📌 النظام المصري' : '📌 النظام الخليجي'}
+                      {useLocalGrades ? ' (قائمة محلية)' : ' (من Firebase)'}
                     </div>
                   </div>
                   
